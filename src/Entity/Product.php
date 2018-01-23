@@ -37,12 +37,12 @@ class Product
      */
     private $taxeRate;
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -50,12 +50,12 @@ class Product
     /**
      * @param string $name
      */
-    public function setName(string $name) : void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -63,12 +63,12 @@ class Product
     /**
      * @param string $description
      */
-    public function setDescription(string $description) : void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    public function getPrice() : float
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -76,12 +76,12 @@ class Product
     /**
      * @param float $price
      */
-    public function setPrice(float $price) : void
+    public function setPrice(float $price): void
     {
         $this->price = $price;
     }
 
-    public function getTaxeRate() : float
+    public function getTaxeRate(): float
     {
         return $this->taxeRate;
     }
@@ -89,7 +89,7 @@ class Product
     /**
      * @param float $taxeRate
      */
-    public function setTaxeRate(float $taxeRate) : void
+    public function setTaxeRate(float $taxeRate): void
     {
         $this->taxeRate = $taxeRate;
     }
