@@ -22,6 +22,11 @@ class Image
      */
     private $url;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="images")
+     */
+    private $product;
+
     public function getId(): int
     {
         return $this->id;
@@ -35,8 +40,25 @@ class Image
     /**
      * @param string $url
      */
-    public function setUrl(string $url): void
+    public function setUrl(string $url): Image
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getProduct(): Product
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param Product $product
+     */
+    public function setProduct(Product $product): Image
+    {
+        $this->product = $product;
+
+        return $this;
     }
 }
