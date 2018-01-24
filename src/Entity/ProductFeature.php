@@ -4,9 +4,18 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity
- * @ORM\Table(name="product_feature")
+ * @ORM\Table(
+ *     name="product_feature",
+ *     uniqueConstraints={
+ *         @ORM\UniqueConstraint(
+ *             name="unique_couple",
+ *             columns={"product_id", "feature_id"}
+ *         )
+ *     }
+ * )
  */
 class ProductFeature
 {
