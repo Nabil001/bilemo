@@ -164,7 +164,7 @@ class Product
      */
     public function addImage(Image $image): Product
     {
-        if ($this->images->contains($image)) {
+        if (!$this->images->contains($image)) {
             $this->images[] = $image;
         }
         $image->setProduct($this);
