@@ -27,11 +27,17 @@ class Image
      */
     private $product;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getUrl(): string
     {
         return $this->url;
@@ -39,6 +45,7 @@ class Image
 
     /**
      * @param string $url
+     * @return Image
      */
     public function setUrl(string $url): Image
     {
@@ -47,6 +54,9 @@ class Image
         return $this;
     }
 
+    /**
+     * @return Product
+     */
     public function getProduct(): Product
     {
         return $this->product;
@@ -54,6 +64,7 @@ class Image
 
     /**
      * @param Product $product
+     * @return Image
      */
     public function setProduct(Product $product): Image
     {

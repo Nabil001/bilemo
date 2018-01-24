@@ -43,21 +43,40 @@ class Product
      *     targetEntity="Image",
      *     mappedBy="product",
      *     orphanRemoval=true,
-     *     cascade={"persist", "remove"}
+     *     cascade={"persist", "remove"},
+     *     fetch="EAGER"
      * )
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="ProductFeature",
+     *     mappedBy="product",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true,
+     *     fetch="EXTRA_LAZY"
+     * )
+     */
+    private $productFeatures;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->productFeatures = new ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
@@ -65,6 +84,7 @@ class Product
 
     /**
      * @param string $name
+     * @return Product
      */
     public function setName(string $name): Product
     {
@@ -73,6 +93,9 @@ class Product
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getDescription(): string
     {
         return $this->description;
@@ -80,6 +103,7 @@ class Product
 
     /**
      * @param string $description
+     * @return Product
      */
     public function setDescription(string $description): Product
     {
@@ -88,13 +112,17 @@ class Product
         return $this;
     }
 
-    public function getPrice()
+    /**
+     * @return float
+     */
+    public function getPrice(): float
     {
         return $this->price;
     }
 
     /**
      * @param float $price
+     * @return Product
      */
     public function setPrice(float $price): Product
     {
@@ -103,13 +131,17 @@ class Product
         return $this;
     }
 
-    public function getTaxeRate()
+    /**
+     * @return float
+     */
+    public function getTaxeRate(): float
     {
         return $this->taxeRate;
     }
 
     /**
      * @param float $taxeRate
+     * @return Product
      */
     public function setTaxeRate(float $taxeRate): Product
     {
@@ -119,7 +151,16 @@ class Product
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getImages(): ArrayCollection
+    {
+        return $this->images;
+    }
+
+    /**
      * @param Image $image
+     * @return Product
      */
     public function addImage(Image $image): Product
     {
@@ -133,10 +174,44 @@ class Product
 
     /**
      * @param Image $image
+     * @return Product
      */
     public function removeImage(Image $image): Product
     {
         $this->images->removeElement($image);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProductFeatures(): ArrayCollection
+    {
+        return $this->productFeatures;
+    }
+
+    /**
+     * @param ProductFeature $productFeature
+     * @return Product
+     */
+    public function addProductFeature(ProductFeature $productFeature): Product
+    {
+        if (!$this->productFeatures->contains($productFeature)) {
+            $this->productFeatures[] = $productFeature;
+        }
+        $productFeature->setProduct($this);
+
+        return $this;
+    }
+
+    /**
+     * @param ProductFeature $productFeature
+     * @return Product
+     */
+    public function removeProductFeature(ProductFeature $productFeature): Product
+    {
+        $this->productFeatures->removeElement($productFeature);
 
         return $this;
     }

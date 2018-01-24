@@ -22,11 +22,17 @@ class Feature
      */
     private $name;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
@@ -34,6 +40,7 @@ class Feature
 
     /**
      * @param string $name
+     * @return Feature
      */
     public function setName(string $name): Feature
     {

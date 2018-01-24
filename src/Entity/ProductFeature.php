@@ -22,17 +22,86 @@ class ProductFeature
      */
     private $value;
 
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity="Product",
+     *     inversedBy="productFeatures",
+     *     cascade={"persist"},
+     *     fetch="EAGER"
+     * )
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity="Feature",
+     *     cascade={"persist"},
+     *     fetch="EAGER"
+     * )
+     */
+    private $feature;
+
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
     /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    /**
      * @param string $value
+     * @return ProductFeature
      */
     public function setValue(string $value): ProductFeature
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getProduct(): Product
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param Product $product
+     * @return ProductFeature
+     */
+    public function setProduct(Product $product): ProductFeature
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * @return Feature
+     */
+    public function getFeature(): Feature
+    {
+        return $this->feature;
+    }
+
+    /**
+     * @param Feature $feature
+     * @return ProductFeature
+     */
+    public function setFeature(Feature $feature): ProductFeature
+    {
+        $this->feature = $feature;
 
         return $this;
     }
