@@ -6,6 +6,8 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^1.6.10",
         "doctrine/orm": "^2.5.11",
+        "friendsofsymfony/rest-bundle": "^2.3",
+        "jms/serializer-bundle": "^2.3",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
@@ -57,7 +59,7 @@
     "extra": {
         "symfony": {
             "id": "01C4HHY7SW8TTJJYP6H4X01TPQ",
-            "allow-contrib": false
+            "allow-contrib": true
         }
     }
 }
