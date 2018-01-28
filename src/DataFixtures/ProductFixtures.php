@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\DataFixtures;
-
 
 use App\Entity\Feature;
 use App\Entity\Image;
@@ -13,8 +11,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class ProductFixtures extends Fixture
 {
+    /**
+     * @var array
+     */
     private $features = [];
-
+    
     const PRODUCTS = [
         "Samsung Galaxy A8",
         "Honor 9",
@@ -180,7 +181,7 @@ class ProductFixtures extends Fixture
         ],
     ];
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         foreach (self::PRODUCT_FEATURES as $featureName => $value) {
             $feature = new Feature();
