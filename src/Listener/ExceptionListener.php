@@ -51,9 +51,12 @@ class ExceptionListener
             }
         }
 
-        $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+        $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         $response->setContent($this->serializer->serialize(
-           ['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Bad Request'],
+           [
+               'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+               'message' => $exception->getMessage()
+           ],
            'json'
         ));
 
