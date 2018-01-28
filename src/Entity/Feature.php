@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Feature
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -18,6 +20,8 @@ class Feature
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     private $name;

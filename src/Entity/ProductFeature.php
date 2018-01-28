@@ -20,6 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
 class ProductFeature
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -32,6 +34,8 @@ class ProductFeature
     private $value;
 
     /**
+     * @var Product
+     *
      * @ORM\ManyToOne(
      *     targetEntity="Product",
      *     inversedBy="productFeatures",
@@ -42,6 +46,8 @@ class ProductFeature
     private $product;
 
     /**
+     * @var Feature
+     *
      * @ORM\ManyToOne(
      *     targetEntity="Feature",
      *     cascade={"persist"},

@@ -6,12 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\Table(name="product")
  */
 class Product
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -19,26 +21,36 @@ class Product
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     private $name;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="text")
      */
     private $description;
 
     /**
+     * @var float
+     *
      * @ORM\Column(type="decimal", precision=6, scale=2)
      */
     private $price;
 
     /**
+     * @var float
+     *
      * @ORM\Column(name="taxe_rate", type="decimal", precision=5, scale=2)
      */
     private $taxeRate;
 
     /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(
      *     targetEntity="Image",
      *     mappedBy="product",
@@ -50,6 +62,8 @@ class Product
     private $images;
 
     /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(
      *     targetEntity="ProductFeature",
      *     mappedBy="product",
