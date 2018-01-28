@@ -14,7 +14,7 @@ class ProductController extends FOSRestController
      *     name="app_product_show",
      *     requirements={"id"="\d+"}
      * )
-     * @Rest\View(statusCode=200, populateDefaultVars=false)
+     * @Rest\View(statusCode=200, populateDefaultVars=false, serializerGroups={"show"})
      */
     public function show(Product $product)
     {
