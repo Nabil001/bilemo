@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
@@ -16,6 +17,8 @@ class Image
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     *
+     * @Serializer\Exclude()
      */
     private $id;
 
@@ -23,6 +26,8 @@ class Image
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Serializer\Groups({"show", "list"})
      */
     private $url;
 
@@ -30,6 +35,8 @@ class Image
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="images")
+     *
+     * @Serializer\Exclude()
      */
     private $product;
 
