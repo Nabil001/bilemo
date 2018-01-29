@@ -3,11 +3,32 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\Table(name="product")
+ *
+ * @Hateoas\Relation(
+ *     "self",
+ *     href=@Hateoas\Route(
+ *         "app_product_show",
+ *         parameters={"id"="expr(object.getId())"},
+ *         absolute=true
+ *     ),
+ *     exclusion=@Hateoas\Exclusion(groups={"show", "list"})
+ * )
+ * @Hateoas\Relation(
+ *     "images",
+ *     embedded=@Hateoas\Embedded("expr(object.getImages())"),
+ *     exclusion=@Hateoas\Exclusion(
+ *         excludeIf="expr(!count(object.getImages()))",
+ *         groups={"show", "list"}
+ *     )
+ * )
  */
 class Product
 {
@@ -17,6 +38,8 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     *
+     * @Serializer\Groups({"show", "list"})
      */
     private $id;
 
@@ -24,6 +47,8 @@ class Product
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Serializer\Groups({"show", "list"})
      */
     private $name;
 
@@ -31,6 +56,8 @@ class Product
      * @var string
      *
      * @ORM\Column(type="text")
+     *
+     * @Serializer\Groups({"show"})
      */
     private $description;
 
@@ -38,6 +65,8 @@ class Product
      * @var float
      *
      * @ORM\Column(type="decimal", precision=6, scale=2)
+     *
+     * @Serializer\Groups({"show", "list"})
      */
     private $price;
 
@@ -45,11 +74,13 @@ class Product
      * @var float
      *
      * @ORM\Column(name="taxe_rate", type="decimal", precision=5, scale=2)
+     *
+     * @Serializer\Groups({"show", "list"})
      */
     private $taxeRate;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * @ORM\OneToMany(
      *     targetEntity="Image",
@@ -58,11 +89,13 @@ class Product
      *     cascade={"persist", "remove"},
      *     fetch="EAGER"
      * )
+     *
+     * @Serializer\Exclude()
      */
     private $images;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
      * @ORM\OneToMany(
      *     targetEntity="ProductFeature",
@@ -71,6 +104,8 @@ class Product
      *     orphanRemoval=true,
      *     fetch="EXTRA_LAZY"
      * )
+     *
+     * @Serializer\Exclude()
      */
     private $productFeatures;
 
@@ -165,9 +200,9 @@ class Product
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getImages(): ArrayCollection
+    public function getImages(): Collection
     {
         return $this->images;
     }
@@ -198,9 +233,9 @@ class Product
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getProductFeatures(): ArrayCollection
+    public function getProductFeatures(): Collection
     {
         return $this->productFeatures;
     }
