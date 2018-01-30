@@ -29,6 +29,14 @@ use JMS\Serializer\Annotation as Serializer;
  *         groups={"show", "list"}
  *     )
  * )
+ * @Hateoas\Relation(
+ *     "features",
+ *     embedded=@Hateoas\Embedded("expr(object.getProductFeatures())"),
+ *     exclusion=@Hateoas\Exclusion(
+ *         excludeIf="expr(!count(object.getProductFeatures()))",
+ *         groups={"show"}
+ *     )
+ * )
  */
 class Product
 {
