@@ -51,15 +51,21 @@ class ExceptionListener
             }
         }
 
-        $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-        $response->setContent($this->serializer->serialize(
-           [
-               'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-               'message' => $exception->getMessage()
-           ],
-           'json'
-        ));
+        $env = $_SERVER['APP_ENV'] ?? 'dev';
+        $debug = $_SERVER['APP_DEBUG'] ?? ('prod' !== $env);
 
-        $event->setResponse($response);
+        if (!$debug) {
+            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            $response->setContent($this->serializer->serialize(
+                [
+                    'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'exception' => get_class($exception),
+                    'message' => $exception->getMessage()
+                ],
+                'json'
+            ));
+
+            $event->setResponse($response);
+        }
     }
 }
