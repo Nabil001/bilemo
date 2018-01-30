@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\JsonSerializationVisitor;
 
 /**
  * @ORM\Entity
@@ -17,8 +18,6 @@ class Image
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
-     *
-     * @Serializer\Exclude()
      */
     private $id;
 
@@ -26,8 +25,6 @@ class Image
      * @var string
      *
      * @ORM\Column(type="string")
-     *
-     * @Serializer\Groups({"show", "list"})
      */
     private $url;
 
@@ -35,8 +32,6 @@ class Image
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="images")
-     *
-     * @Serializer\Exclude()
      */
     private $product;
 
@@ -84,5 +79,16 @@ class Image
         $this->product = $product;
 
         return $this;
+    }
+
+    /**
+     * @param JsonSerializationVisitor $visitor
+     * @return array
+     *
+     * @Serializer\HandlerCallback(format="json", direction="serialization")
+     */
+    public function normalize(JsonSerializationVisitor $visitor): array
+    {
+        return ['url' => $this->getUrl()];
     }
 }
