@@ -20,4 +20,16 @@ class ProductController extends FOSRestController
     {
         return $product;
     }
+
+    /**
+     * @Rest\Get(
+     *     "/products/",
+     *     name="app_product_list"
+     * )
+     * @Rest\View(statusCode=200, populateDefaultVars=false, serializerGroups={"list"})
+     */
+    public function list()
+    {
+        return $this->getDoctrine()->getManager()->getRepository(Product::class)->findAll();
+    }
 }
