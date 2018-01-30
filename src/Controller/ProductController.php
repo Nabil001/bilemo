@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ProductController extends FOSRestController
 {
@@ -15,6 +16,12 @@ class ProductController extends FOSRestController
      *     requirements={"id"="\d+"}
      * )
      * @Rest\View(statusCode=200, populateDefaultVars=false, serializerGroups={"show"})
+     *
+     * @ParamConverter(
+     *     name="product",
+     *     class="App\Entity\Product",
+     *     options={"repository_method" = "findWithJoins"}
+     * )
      */
     public function show(Product $product)
     {
