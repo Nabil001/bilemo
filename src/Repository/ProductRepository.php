@@ -14,7 +14,7 @@ class ProductRepository extends EntityRepository
     public function findWithJoins(int $id): ?Product
     {
         $products = $this->createQueryBuilder('p')
-            ->join('p.productFeatures', 'f')
+            ->leftJoin('p.productFeatures', 'f')
             ->addSelect('f')
             ->where('p.id = :id')
             ->setParameter(':id', $id)
