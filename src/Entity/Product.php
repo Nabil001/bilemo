@@ -19,14 +19,14 @@ use JMS\Serializer\Annotation as Serializer;
  *         parameters={"id"="expr(object.getId())"},
  *         absolute=true
  *     ),
- *     exclusion=@Hateoas\Exclusion(groups={"show", "list"})
+ *     exclusion=@Hateoas\Exclusion(groups={"Show", "Default"})
  * )
  * @Hateoas\Relation(
  *     "images",
  *     embedded=@Hateoas\Embedded("expr(object.getImages())"),
  *     exclusion=@Hateoas\Exclusion(
  *         excludeIf="expr(!count(object.getImages()))",
- *         groups={"show", "list"}
+ *         groups={"Show", "Default"}
  *     )
  * )
  * @Hateoas\Relation(
@@ -34,7 +34,7 @@ use JMS\Serializer\Annotation as Serializer;
  *     embedded=@Hateoas\Embedded("expr(object.getProductFeatures())"),
  *     exclusion=@Hateoas\Exclusion(
  *         excludeIf="expr(!count(object.getProductFeatures()))",
- *         groups={"show"}
+ *         groups={"Show"}
  *     )
  * )
  */
@@ -47,7 +47,7 @@ class Product
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      *
-     * @Serializer\Groups({"show", "list"})
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $id;
 
@@ -56,7 +56,7 @@ class Product
      *
      * @ORM\Column(type="string")
      *
-     * @Serializer\Groups({"show", "list"})
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $name;
 
@@ -65,7 +65,7 @@ class Product
      *
      * @ORM\Column(type="text")
      *
-     * @Serializer\Groups({"show"})
+     * @Serializer\Groups({"Show"})
      */
     private $description;
 
@@ -74,7 +74,7 @@ class Product
      *
      * @ORM\Column(type="decimal", precision=6, scale=2)
      *
-     * @Serializer\Groups({"show", "list"})
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $price;
 
@@ -83,7 +83,7 @@ class Product
      *
      * @ORM\Column(name="taxe_rate", type="decimal", precision=5, scale=2)
      *
-     * @Serializer\Groups({"show", "list"})
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $taxeRate;
 
