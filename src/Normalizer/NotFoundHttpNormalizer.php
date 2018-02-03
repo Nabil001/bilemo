@@ -3,6 +3,7 @@
 
 namespace App\Normalizer;
 
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
@@ -14,7 +15,8 @@ class NotFoundHttpNormalizer extends AbstractExceptionNormalizer
 
     const HANDLED_CLASSES = [
         NotFoundHttpException::class,
-        ResourceNotFoundException::class
+        ResourceNotFoundException::class,
+        OutOfRangeCurrentPageException::class
     ];
 
     public function getStatusCode(): int
