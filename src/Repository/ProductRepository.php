@@ -3,9 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\ORM\EntityRepository;
+use Hateoas\Representation\PaginatedRepresentation;
+use Symfony\Component\HttpFoundation\Request;
 
-class ProductRepository extends EntityRepository
+class ProductRepository extends AbstractPaginatorRepository
 {
     /**
      * @param int $id
@@ -22,5 +23,25 @@ class ProductRepository extends EntityRepository
             ->getResult();
 
         return $products[0] ?? null;
+    }
+
+    /**
+     * @param int $page
+     * @param int $limit
+     * @param null|string $term
+     * @return PaginatedRepresentation
+     */
+    public function search(int $page, int $limit, ?string $term, Request $request): PaginatedRepresentation
+    {
+        $parameters = [];
+        $builder = $this->createQueryBuilder('p');
+
+        if (!empty($term)) {
+            $builder->where($builder->expr()->like('p.name', ':term'))
+                ->setParameter('term', '%'.$term.'%');
+            $parameters['term'] = $term;
+        }
+
+        return parent::paginate($builder, $page, $limit, $parameters, $request);
     }
 }
