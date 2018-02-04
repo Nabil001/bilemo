@@ -3,42 +3,93 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\Table(name="product")
+ *
+ * @Hateoas\Relation(
+ *     "self",
+ *     href=@Hateoas\Route(
+ *         "app_product_show",
+ *         parameters={"id"="expr(object.getId())"},
+ *         absolute=true
+ *     ),
+ *     exclusion=@Hateoas\Exclusion(groups={"Show", "Default"})
+ * )
+ * @Hateoas\Relation(
+ *     "images",
+ *     embedded=@Hateoas\Embedded("expr(object.getImages())"),
+ *     exclusion=@Hateoas\Exclusion(
+ *         excludeIf="expr(!count(object.getImages()))",
+ *         groups={"Show", "Default"}
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *     "features",
+ *     embedded=@Hateoas\Embedded("expr(object.getProductFeatures())"),
+ *     exclusion=@Hateoas\Exclusion(
+ *         excludeIf="expr(!count(object.getProductFeatures()))",
+ *         groups={"Show"}
+ *     )
+ * )
  */
 class Product
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     *
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
+     *
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $name;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="text")
+     *
+     * @Serializer\Groups({"Show"})
      */
     private $description;
 
     /**
+     * @var float
+     *
      * @ORM\Column(type="decimal", precision=6, scale=2)
+     *
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $price;
 
     /**
+     * @var float
+     *
      * @ORM\Column(name="taxe_rate", type="decimal", precision=5, scale=2)
+     *
+     * @Serializer\Groups({"Show", "Default"})
      */
     private $taxeRate;
 
     /**
+     * @var Collection
+     *
      * @ORM\OneToMany(
      *     targetEntity="Image",
      *     mappedBy="product",
@@ -46,10 +97,14 @@ class Product
      *     cascade={"persist", "remove"},
      *     fetch="EAGER"
      * )
+     *
+     * @Serializer\Exclude()
      */
     private $images;
 
     /**
+     * @var Collection
+     *
      * @ORM\OneToMany(
      *     targetEntity="ProductFeature",
      *     mappedBy="product",
@@ -57,6 +112,8 @@ class Product
      *     orphanRemoval=true,
      *     fetch="EXTRA_LAZY"
      * )
+     *
+     * @Serializer\Exclude()
      */
     private $productFeatures;
 
@@ -151,9 +208,9 @@ class Product
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getImages(): ArrayCollection
+    public function getImages(): Collection
     {
         return $this->images;
     }
@@ -184,9 +241,9 @@ class Product
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getProductFeatures(): ArrayCollection
+    public function getProductFeatures(): Collection
     {
         return $this->productFeatures;
     }

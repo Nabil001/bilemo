@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\JsonSerializationVisitor;
 
 /**
  * @ORM\Entity
@@ -20,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
 class ProductFeature
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -28,10 +31,13 @@ class ProductFeature
 
     /**
      * @ORM\Column(type="string")
+     *
      */
     private $value;
 
     /**
+     * @var Product
+     *
      * @ORM\ManyToOne(
      *     targetEntity="Product",
      *     inversedBy="productFeatures",
@@ -42,6 +48,8 @@ class ProductFeature
     private $product;
 
     /**
+     * @var Feature
+     *
      * @ORM\ManyToOne(
      *     targetEntity="Feature",
      *     cascade={"persist"},
@@ -113,5 +121,16 @@ class ProductFeature
         $this->feature = $feature;
 
         return $this;
+    }
+
+    /**
+     * @param JsonSerializationVisitor $visitor
+     * @return array
+     *
+     * @Serializer\HandlerCallback(format="json", direction="serialization")
+     */
+    public function normalize(JsonSerializationVisitor $visitor): array
+    {
+        return [$this->getFeature()->getName() => $this->getValue()];
     }
 }
