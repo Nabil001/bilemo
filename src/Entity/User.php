@@ -60,7 +60,6 @@ class User
      * @ORM\Column(type="date", name="birth_date")
      *
      * @Assert\Date(
-     *     format="d/m/Y",
      *     message="The birth date format is invalid"
      * )
      */
