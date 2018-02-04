@@ -24,11 +24,17 @@ class ExceptionListener
         $this->serializer = $serializer;
     }
 
+    /**
+     * @param AbstractNormalizer $normalizer
+     */
     public function addNormalizer(AbstractNormalizer $normalizer): void
     {
         $this->normalizers[] = $normalizer;
     }
 
+    /**
+     * @param GetResponseForExceptionEvent $event
+     */
     public function onKernelException(GetResponseForExceptionEvent $event): void
     {
         $exception = $event->getException();

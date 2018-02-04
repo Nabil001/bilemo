@@ -19,16 +19,25 @@ class NotFoundHttpNormalizer extends AbstractExceptionNormalizer
         OutOfRangeCurrentPageException::class
     ];
 
+    /**
+     * {@inheritdoc}
+     */
     public function getStatusCode(): int
     {
         return self::STATUS_CODE;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getDefaultMessage(): string
     {
         return self::MESSAGE;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getHandledClasses(): array
     {
         return self::HANDLED_CLASSES;

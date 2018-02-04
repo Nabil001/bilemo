@@ -71,7 +71,7 @@ class ProductController extends FOSRestController
                 $fetcher->get('page'),
                 $fetcher->get('limit'),
                 $fetcher->get('term'),
-                $request
+                $request->get('_route')
             );
     }
 }

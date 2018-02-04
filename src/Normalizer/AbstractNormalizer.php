@@ -4,6 +4,10 @@ namespace App\Normalizer;
 
 abstract class AbstractNormalizer
 {
+    /**
+     * @param object $object
+     * @return bool
+     */
     public function supports(object $object): bool
     {
         foreach ($this->getHandledClasses() as $handledClass) {
@@ -15,7 +19,14 @@ abstract class AbstractNormalizer
         return false;
     }
 
+    /**
+     * @param object $object
+     * @return array
+     */
     public abstract function normalize(object $object): array;
 
+    /**
+     * @return array
+     */
     protected abstract function getHandledClasses(): array;
 }

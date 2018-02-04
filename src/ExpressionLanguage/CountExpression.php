@@ -6,11 +6,17 @@ use Hateoas\Expression\ExpressionFunctionInterface;
 
 class CountExpression implements ExpressionFunctionInterface
 {
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return 'count';
     }
 
+    /**
+     * @return callable
+     */
     public function getCompiler(): callable
     {
         return function ($countable) {
@@ -21,6 +27,9 @@ class CountExpression implements ExpressionFunctionInterface
         };
     }
 
+    /**
+     * @return callable
+     */
     public function getEvaluator(): callable
     {
         return function ($arguments, $countable) {
@@ -32,6 +41,9 @@ class CountExpression implements ExpressionFunctionInterface
         };
     }
 
+    /**
+     * @return array
+     */
     public function getContextVariables(): array
     {
         return ['array'];

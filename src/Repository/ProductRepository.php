@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Hateoas\Representation\PaginatedRepresentation;
-use Symfony\Component\HttpFoundation\Request;
 
 class ProductRepository extends AbstractPaginatorRepository
 {
@@ -29,9 +28,10 @@ class ProductRepository extends AbstractPaginatorRepository
      * @param int $page
      * @param int $limit
      * @param null|string $term
+     * @param string $route
      * @return PaginatedRepresentation
      */
-    public function search(int $page, int $limit, ?string $term, Request $request): PaginatedRepresentation
+    public function search(int $page, int $limit, ?string $term, string $route): PaginatedRepresentation
     {
         $parameters = [];
         $builder = $this->createQueryBuilder('p');
@@ -42,6 +42,6 @@ class ProductRepository extends AbstractPaginatorRepository
             $parameters['term'] = $term;
         }
 
-        return parent::paginate($builder, $page, $limit, $parameters, $request);
+        return parent::paginate($builder, $page, $limit, $parameters, $route);
     }
 }

@@ -9,7 +9,6 @@ use Hateoas\Representation\Factory\PagerfantaFactory;
 use Hateoas\Representation\PaginatedRepresentation;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractPaginatorRepository extends EntityRepository
 {
@@ -17,10 +16,11 @@ abstract class AbstractPaginatorRepository extends EntityRepository
      * @param QueryBuilder $builder
      * @param int $page
      * @param int $limit
-     * @param $parameters
+     * @param array $parameters
+     * @param string $route
      * @return PaginatedRepresentation
      */
-    public function paginate(QueryBuilder $builder, int $page, int $limit, array $parameters, Request $request): PaginatedRepresentation
+    public function paginate(QueryBuilder $builder, int $page, int $limit, array $parameters, string $route): PaginatedRepresentation
     {
         if (0 >= $page || 0 >= $limit) {
             throw new \LogicException('Page and limit parameters can\'t be inferior to 1');
@@ -31,7 +31,7 @@ abstract class AbstractPaginatorRepository extends EntityRepository
 
         return (new PagerfantaFactory())->createRepresentation(
             $pager,
-            new Route($request->get('_route'), $parameters)
+            new Route($route, $parameters)
         );
     }
 }
