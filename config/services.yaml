@@ -44,3 +44,7 @@ services:
     App\Normalizer\NotFoundHttpNormalizer:
         tags:
             - { name: 'app.exception_normalizer' }
+
+    App\Normalizer\BadRequestHttpNormalizer:
+            tags:
+                - { name: 'app.exception_normalizer' }

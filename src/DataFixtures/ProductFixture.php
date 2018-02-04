@@ -2,15 +2,22 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Client;
 use App\Entity\Feature;
 use App\Entity\Image;
 use App\Entity\Product;
 use App\Entity\ProductFeature;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProductFixture extends Fixture
 {
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
     /**
      * @var array
      */
@@ -181,6 +188,11 @@ class ProductFixture extends Fixture
         ],
     ];
 
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager): void
     {
         foreach (self::PRODUCT_FEATURES as $featureName => $value) {
@@ -216,6 +228,15 @@ class ProductFixture extends Fixture
 
             $manager->persist($product);
         }
+        $manager->flush();
+
+        $user = new Client();
+        $user->setCompany('OpenClassrooms');
+        $user->setUsername('admin');
+        $password = $this->encoder->encodePassword($user, 'opc');
+        $user->setPassword($password);
+
+        $manager->persist($user);
         $manager->flush();
     }
 }
