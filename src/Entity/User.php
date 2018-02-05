@@ -3,11 +3,30 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
+ *
+ * @Hateoas\Relation(
+ *     "self",
+ *     href=@Hateoas\Route(
+ *         "app_user_show",
+ *         parameters={"id"="expr(object.getId())"},
+ *         absolute=true
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *     "delete",
+ *     href=@Hateoas\Route(
+ *         "app_user_show",
+ *         parameters={"id"="expr(object.getId())"},
+ *         absolute=true
+ *     )
+ * )
  */
 class User
 {
@@ -62,6 +81,8 @@ class User
      * @Assert\Date(
      *     message="The birth date format is invalid"
      * )
+     *
+     * @Serializer\Type("DateTime<'d/m/Y'>")
      */
     private $birthDate;
 
@@ -73,6 +94,8 @@ class User
      *     inversedBy="users",
      *     fetch="LAZY"
      * )
+     *
+     * @Serializer\Exclude()
      */
     private $client;
 

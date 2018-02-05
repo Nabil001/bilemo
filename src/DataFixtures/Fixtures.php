@@ -190,80 +190,107 @@ class Fixtures extends Fixture
     ];
 
     const USERS = [
+        'openclassrooms' => [
+            [
+                'Nabil',
+                'Lemenuel',
+                '1995-04-06'
+            ],
+            [
+                'Pierre',
+                'Dupont',
+                '1994-01-16'
+            ],
+            [
+                'John',
+                'Doe',
+                '1980-12-27'
+            ],
+            [
+                'Blaise',
+                'Pascal',
+                '1986-04-06'
+            ],
+            [
+                'Damien',
+                'Delarocque',
+                '1995-09-06'
+            ],
+            [
+                'Bastien',
+                'Lesaulnier',
+                '1998-01-16'
+            ],
+            [
+                'Clément',
+                'Eustache',
+                '1980-12-27'
+            ],
+            [
+                'Kévin',
+                'Valognes',
+                '1986-04-06'
+            ],
+            [
+                'Hugues',
+                'Lemenuel',
+                '1995-04-06'
+            ],
+            [
+                'Jean',
+                'Dupont',
+                '1994-01-16'
+            ],
+            [
+                'Sacha',
+                'Fosse',
+                '1980-12-27'
+            ],
+            [
+                'Léo',
+                'Manche',
+                '1986-04-06'
+            ],
+            [
+                'Jean',
+                'Lafleur',
+                '1994-01-16'
+            ],
+            [
+                'Pierre',
+                'Fosse',
+                '1980-12-27'
+            ],
+            [
+                'Hercule',
+                'Manche',
+                '1986-04-06'
+            ]
+        ],
+        'sensiolabs' => [
+            [
+                'Seth',
+                'Meyers',
+                '1981-06-03'
+            ],
+            [
+                'Stephen',
+                'Colbert',
+                '1975-04-01'
+            ]
+        ]
+    ];
+
+    const CLIENTS = [
         [
-            'Nabil',
-            'Lemenuel',
-            '1995-04-06'
+            'OpenClassrooms',
+            'openclassrooms',
+            'opc'
         ],
         [
-            'Pierre',
-            'Dupont',
-            '1994-01-16'
-        ],
-        [
-            'John',
-            'Doe',
-            '1980-12-27'
-        ],
-        [
-            'Blaise',
-            'Pascal',
-            '1986-04-06'
-        ],
-        [
-            'Damien',
-            'Delarocque',
-            '1995-09-06'
-        ],
-        [
-            'Bastien',
-            'Lesaulnier',
-            '1998-01-16'
-        ],
-        [
-            'Clément',
-            'Eustache',
-            '1980-12-27'
-        ],
-        [
-            'Kévin',
-            'Valognes',
-            '1986-04-06'
-        ],
-        [
-            'Hugues',
-            'Lemenuel',
-            '1995-04-06'
-        ],
-        [
-            'Jean',
-            'Dupont',
-            '1994-01-16'
-        ],
-        [
-            'Sacha',
-            'Fosse',
-            '1980-12-27'
-        ],
-        [
-            'Léo',
-            'Manche',
-            '1986-04-06'
-        ],
-        [
-            'Jean',
-            'Lafleur',
-            '1994-01-16'
-        ],
-        [
-            'Pierre',
-            'Fosse',
-            '1980-12-27'
-        ],
-        [
-            'Hercule',
-            'Manche',
-            '1986-04-06'
+            'SensioLabs',
+            'sensiolabs',
+            'fabpot'
         ]
     ];
 
@@ -308,23 +335,25 @@ class Fixtures extends Fixture
             $manager->persist($product);
         }
 
-        $manager->flush();
+        foreach (self::CLIENTS as $clientData) {
+            $client = new Client();
+            $client->setCompany($clientData[0]);
+            $client->setUsername($clientData[1]);
+            $password = $this->encoder->encodePassword($client, $clientData[2]);
+            $client->setPassword($password);
 
-        $client = new Client();
-        $client->setCompany('OpenClassrooms');
-        $client->setUsername('admin');
-        $password = $this->encoder->encodePassword($client, 'opc');
-        $client->setPassword($password);
+            if (isset(self::USERS[$clientData[1]])) {
+                foreach (self::USERS[$clientData[1]] as $userData) {
+                    $user = new User();
+                    $user->setFirstname($userData[0]);
+                    $user->setLastname($userData[1]);
+                    $user->setBirthDate(new \DateTime($userData[2]));
+                    $client->addUser($user);
+                }
+            }
 
-        foreach (self::USERS as $userData) {
-            $user = new User();
-            $user->setFirstname($userData[0]);
-            $user->setLastname($userData[1]);
-            $user->setBirthDate(new \DateTime($userData[2]));
-            $client->addUser($user);
+            $manager->persist($client);
         }
-
-        $manager->persist($client);
 
         $manager->flush();
     }

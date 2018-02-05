@@ -27,11 +27,15 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Converter\UserConverter:
+        tags:
+            - { name: request.param_converter, converter: app.user_converter }
+
     app.count_expression:
         class: 'App\ExpressionLanguage\CountExpression'
         public: true
         tags:
-        - { name: 'hateoas.expression_function' }
+            - { name: 'hateoas.expression_function' }
 
     app.exception_listener:
         class: 'App\Listener\ExceptionListener'
