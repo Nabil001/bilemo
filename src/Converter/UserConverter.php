@@ -12,8 +12,14 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class UserConverter implements ParamConverterInterface
 {
+    /**
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $manager;
 
     public function __construct(TokenStorageInterface $tokenStorage, EntityManagerInterface $manager)
@@ -22,6 +28,10 @@ class UserConverter implements ParamConverterInterface
         $this->manager = $manager;
     }
 
+    /**
+     * @param ParamConverter $configuration
+     * @return bool
+     */
     public function supports(ParamConverter $configuration): bool
     {
         $class = $configuration->getClass();
@@ -30,6 +40,10 @@ class UserConverter implements ParamConverterInterface
         return 'App\Entity\User' == $class && 'user' == $name;
     }
 
+    /**
+     * @param Request $request
+     * @param ParamConverter $configuration
+     */
     public function apply(Request $request, ParamConverter $configuration): void
     {
         $id = $request->get('id');
