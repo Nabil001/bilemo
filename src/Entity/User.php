@@ -47,11 +47,11 @@ class User
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min="2",
-     *     minMessage="The firstname must be at least 2-character long"
+     *     minMessage="The firstname must be at least 2-character long."
      * )
      * @Assert\Regex(
      *     pattern="^[A-Z]+[a-z]*",
-     *     message="The firstname in invalid"
+     *     message="The firstname is invalid."
      * )
      */
     private $firstname;
@@ -64,11 +64,11 @@ class User
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min="2",
-     *     minMessage="The lastname must be at least 2-character long"
+     *     minMessage="The lastname must be at least 2-character long."
      * )
      * @Assert\Regex(
      *     pattern="^[A-Z]+[a-z]*",
-     *     message="The lastname in invalid"
+     *     message="The lastname is invalid."
      * )
      */
     private $lastname;
@@ -78,8 +78,9 @@ class User
      *
      * @ORM\Column(type="date", name="birth_date")
      *
+     * @Assert\NotNull(message="The user must be given a birth date.")
      * @Assert\Date(
-     *     message="The birth date format is invalid"
+     *     message="The birth date format is invalid."
      * )
      *
      * @Serializer\Type("DateTime<'d/m/Y'>")
