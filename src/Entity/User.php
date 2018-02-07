@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\JsonSerializationVisitor;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -44,13 +45,13 @@ class User
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="The lastname can't be blank.")
      * @Assert\Length(
      *     min="2",
      *     minMessage="The firstname must be at least 2-character long."
      * )
      * @Assert\Regex(
-     *     pattern="^[A-Z]+[a-z]*",
+     *     pattern="#^[A-Z]*[a-z]*$#",
      *     message="The firstname is invalid."
      * )
      */
@@ -61,13 +62,13 @@ class User
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="The lastname can't be blank.")
      * @Assert\Length(
      *     min="2",
      *     minMessage="The lastname must be at least 2-character long."
      * )
      * @Assert\Regex(
-     *     pattern="^[A-Z]+[a-z]*",
+     *     pattern="#^[A-Z]*[a-z]*$#",
      *     message="The lastname is invalid."
      * )
      */
