@@ -87,7 +87,7 @@ class UserController extends FOSRestController
      *      converter="fos_rest.request_body",
      * )
      */
-    public function create(User $user, ConstraintViolationListInterface $errors)
+    public function create(User $user, ConstraintViolationListInterface $errors, Request $request)
     {
         if (count($errors)) {
             $normalizedErrorList = [];
@@ -112,7 +112,7 @@ class UserController extends FOSRestController
             Response::HTTP_CREATED,
             [
                 'Location' => $this->generateUrl(
-                    'app_user_show',
+                    $request->get('_route'),
                     ['id' => $user->getId()]
                 )
             ]
