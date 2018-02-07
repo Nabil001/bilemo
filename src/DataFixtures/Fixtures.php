@@ -7,11 +7,12 @@ use App\Entity\Feature;
 use App\Entity\Image;
 use App\Entity\Product;
 use App\Entity\ProductFeature;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class ProductFixture extends Fixture
+class Fixtures extends Fixture
 {
     /**
      * @var UserPasswordEncoderInterface
@@ -188,6 +189,111 @@ class ProductFixture extends Fixture
         ],
     ];
 
+    const USERS = [
+        'openclassrooms' => [
+            [
+                'Nabil',
+                'Lemenuel',
+                '1995-04-06'
+            ],
+            [
+                'Pierre',
+                'Dupont',
+                '1994-01-16'
+            ],
+            [
+                'John',
+                'Doe',
+                '1980-12-27'
+            ],
+            [
+                'Blaise',
+                'Pascal',
+                '1986-04-06'
+            ],
+            [
+                'Damien',
+                'Delarocque',
+                '1995-09-06'
+            ],
+            [
+                'Bastien',
+                'Lesaulnier',
+                '1998-01-16'
+            ],
+            [
+                'Clément',
+                'Eustache',
+                '1980-12-27'
+            ],
+            [
+                'Kévin',
+                'Valognes',
+                '1986-04-06'
+            ],
+            [
+                'Hugues',
+                'Lemenuel',
+                '1995-04-06'
+            ],
+            [
+                'Jean',
+                'Dupont',
+                '1994-01-16'
+            ],
+            [
+                'Sacha',
+                'Fosse',
+                '1980-12-27'
+            ],
+            [
+                'Léo',
+                'Manche',
+                '1986-04-06'
+            ],
+            [
+                'Jean',
+                'Lafleur',
+                '1994-01-16'
+            ],
+            [
+                'Pierre',
+                'Fosse',
+                '1980-12-27'
+            ],
+            [
+                'Hercule',
+                'Manche',
+                '1986-04-06'
+            ]
+        ],
+        'sensiolabs' => [
+            [
+                'Seth',
+                'Meyers',
+                '1981-06-03'
+            ],
+            [
+                'Stephen',
+                'Colbert',
+                '1975-04-01'
+            ]
+        ]
+    ];
+
+    const CLIENTS = [
+        [
+            'OpenClassrooms',
+            'openclassrooms',
+            'opc'
+        ],
+        [
+            'SensioLabs',
+            'sensiolabs',
+            'fabpot'
+        ]
+    ];
+
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -228,15 +334,27 @@ class ProductFixture extends Fixture
 
             $manager->persist($product);
         }
-        $manager->flush();
 
-        $user = new Client();
-        $user->setCompany('OpenClassrooms');
-        $user->setUsername('admin');
-        $password = $this->encoder->encodePassword($user, 'opc');
-        $user->setPassword($password);
+        foreach (self::CLIENTS as $clientData) {
+            $client = new Client();
+            $client->setCompany($clientData[0]);
+            $client->setUsername($clientData[1]);
+            $password = $this->encoder->encodePassword($client, $clientData[2]);
+            $client->setPassword($password);
 
-        $manager->persist($user);
+            if (isset(self::USERS[$clientData[1]])) {
+                foreach (self::USERS[$clientData[1]] as $userData) {
+                    $user = new User();
+                    $user->setFirstname($userData[0]);
+                    $user->setLastname($userData[1]);
+                    $user->setBirthDate(new \DateTime($userData[2]));
+                    $client->addUser($user);
+                }
+            }
+
+            $manager->persist($client);
+        }
+
         $manager->flush();
     }
 }

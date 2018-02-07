@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -40,6 +42,24 @@ class Client implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\User",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true,
+     *     fetch="EXTRA_LAZY",
+     *     mappedBy="client"
+     * )
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -97,11 +117,36 @@ class Client implements UserInterface
         $this->password = $password;
     }
 
+    /**
+     * @param User $user
+     */
+    public function addUser(User $user): void
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+        $user->setClient($this);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function removeUser(User $user): void
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * @return array
+     */
     public function getRoles(): array
     {
         return ['ROLE_CLIENT'];
     }
 
+    /**
+     * @return null|string
+     */
     public function getSalt(): ?string
     {
         return null;
