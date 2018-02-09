@@ -119,23 +119,26 @@ class UserController extends FOSRestController
      *     section="Users",
      *     resource=true,
      *     description="Create a user.",
-     *     requirements={
+     *     parameters={
      *         {
      *             "name"="firstname",
      *             "dataType"="string",
-     *             "requirement"="^[A-Z]*[a-z]*$",
+     *             "format"="[A-Z]*[a-z]*",
+     *             "required"=true,
      *             "description"="The user's firstname."
      *         },
      *         {
      *             "name"="lastname",
      *             "dataType"="string",
-     *             "requirement"="^[A-Z]*[a-z]*$",
+     *             "format"="[A-Z]*[a-z]*",
+     *             "required"=true,
      *             "description"="The user's lastname."
      *         },
      *         {
      *             "name"="birth_date",
      *             "dataType"="string",
-     *             "requirement"="dd/mm/YYYY",
+     *             "format"="dd/mm/YYYY",
+     *             "required"=true,
      *             "description"="The user's birth date."
      *         }
      *     },
