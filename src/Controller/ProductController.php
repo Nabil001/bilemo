@@ -6,6 +6,7 @@ use App\Entity\Product;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
+use Nelmio\ApiDocBundle\Annotation as Doc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,6 +28,24 @@ class ProductController extends FOSRestController
      *     name="product",
      *     class="App\Entity\Product",
      *     options={"repository_method" = "findWithJoins"}
+     * )
+     *
+     * @Doc\ApiDoc(
+     *     section="Products",
+     *     resource=true,
+     *     description="Get one of the products.",
+     *     requirements={
+     *         {
+     *             "name"="id",
+     *             "dataType"="integer",
+     *             "requirement"="\d+",
+     *             "description"="The product unique identifier."
+     *         }
+     *     },
+     *     statusCodes={
+     *         200="Returned when the request succeed.",
+     *         404="Returned when the given product hasn't been found."
+     *     }
      * )
      */
     public function show(Product $product)
@@ -60,6 +79,15 @@ class ProductController extends FOSRestController
      *     name="term",
      *     nullable=true,
      *     description="The searched term."
+     * )
+     *
+     * @Doc\ApiDoc(
+     *     section="Products",
+     *     resource=true,
+     *     description="Get a list of the products.",
+     *     statusCodes={
+     *         200="Returned when the request succeed."
+     *     }
      * )
      */
     public function list(ParamFetcher $fetcher, Request $request)

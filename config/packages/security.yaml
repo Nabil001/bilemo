@@ -11,6 +11,9 @@ security:
                 property: username
 
     firewalls:
+        doc:
+            pattern: ^/api/doc
+            security: false
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -32,7 +35,7 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 
             # activate different ways to authenticate
 

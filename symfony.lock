@@ -95,8 +95,20 @@
             "ref": "751ee6748c1026fa4350c155d1b3a77b7ddca69c"
         }
     },
+    "michelf/php-markdown": {
+        "version": "1.8.0"
+    },
     "namshi/jose": {
         "version": "7.2.3"
+    },
+    "nelmio/api-doc-bundle": {
+        "version": "2.13",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.13",
+            "ref": "d13bb99357ebcd2ffb6fe808a64961f5bc1c7546"
+        }
     },
     "pagerfanta/pagerfanta": {
         "version": "v1.0.5"
@@ -245,6 +257,18 @@
             "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
         }
     },
+    "symfony/twig-bridge": {
+        "version": "v4.0.4"
+    },
+    "symfony/twig-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "f75ac166398e107796ca94cc57fa1edaa06ec47f"
+        }
+    },
     "symfony/validator": {
         "version": "v4.0.4"
     },
@@ -259,6 +283,9 @@
     },
     "symfony/yaml": {
         "version": "v4.0.3"
+    },
+    "twig/twig": {
+        "version": "v2.4.4"
     },
     "willdurand/hateoas": {
         "version": "2.11.0"
