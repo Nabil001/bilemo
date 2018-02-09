@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\GoneHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -62,6 +63,10 @@ class UserConverter implements ParamConverterInterface
         if (!$user) {
             throw new NotFoundHttpException(
                 sprintf('User %s doesn\'t exist or is not linked with the current client', $id)
+            );
+        } else if (!empty($user->getDeletedAt())) {
+            throw new GoneHttpException(
+                sprintf('User %s has already been deleted.', $id)
             );
         }
 

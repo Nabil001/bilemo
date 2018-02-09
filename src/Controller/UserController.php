@@ -45,7 +45,8 @@ class UserController extends FOSRestController
      *     },
      *     statusCodes={
      *         200="Returned when the request succeed.",
-     *         404="Returned when the given user hasn't been found."
+     *         404="Returned when the given user hasn't been found.",
+     *         410="Returned when the given user has previously been deleted."
      *     }
      * )
      */
@@ -201,15 +202,15 @@ class UserController extends FOSRestController
      *     },
      *     statusCodes={
      *         200="Returned when the given user gets deleted.",
-     *         404="Returned when the given user hasn't been found."
+     *         404="Returned when the given user hasn't been found.",
+     *         410="Returned when the given user has already been deleted."
      *     }
      * )
      */
     public function delete(User $user)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
-        $em->flush();
+        $user->setDeletedAt(new \DateTime());
+        $this->getDoctrine()->getManager()->flush();
 
         return new Response();
     }

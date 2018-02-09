@@ -41,6 +41,7 @@ class UserRepository extends AbstractPaginatorRepository
         $builder = $this->createQueryBuilder('u')
             ->innerJoin('u.client', 'c')
             ->where('c.id = :id')
+            ->andWhere('u.deletedAt IS NULL')
             ->setParameter('id', $client->getId());
 
         if (!empty($term)) {
