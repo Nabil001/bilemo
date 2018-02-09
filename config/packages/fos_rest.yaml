@@ -20,6 +20,7 @@ fos_rest:
 
     format_listener:
         rules:
+            - { path: '^/api/doc/', priorities: ['html'], fallback_format: 'html' }
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
 
     param_fetcher_listener:

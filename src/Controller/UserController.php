@@ -6,6 +6,7 @@ use App\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
+use Nelmio\ApiDocBundle\Annotation as Doc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,24 @@ class UserController extends FOSRestController
      *     name="user",
      *     class="App\Entity\User",
      *     converter="app.user_converter"
+     * )
+     *
+     * @Doc\ApiDoc(
+     *     section="Users",
+     *     resource=true,
+     *     description="Get one of the authenticated client's user.",
+     *     requirements={
+     *         {
+     *             "name"="id",
+     *             "dataType"="integer",
+     *             "requirement"="\d+",
+     *             "description"="The user unique identifier."
+     *         }
+     *     },
+     *     statusCodes={
+     *         200="Returned when the request succeed.",
+     *         404="Returned when the given user hasn't been found."
+     *     }
      * )
      */
     public function show(User $user)
@@ -61,6 +80,15 @@ class UserController extends FOSRestController
      *     nullable=true,
      *     description="The searched term."
      * )
+     *
+     * @Doc\ApiDoc(
+     *     section="Users",
+     *     resource=true,
+     *     description="Get a list of the authenticated client's users.",
+     *     statusCodes={
+     *         200="Returned when the request succeed."
+     *     }
+     * )
      */
     public function list(ParamFetcher $fetcher, Request $request)
     {
@@ -78,13 +106,43 @@ class UserController extends FOSRestController
 
     /**
      * @Rest\Post(
-     *     path="/users",
+     *     path="/users/",
      *     name="app_user_create"
      * )
      *
      * @ParamConverter(
      *      "user",
      *      converter="fos_rest.request_body",
+     * )
+     *
+     * @Doc\ApiDoc(
+     *     section="Users",
+     *     resource=true,
+     *     description="Create a user.",
+     *     requirements={
+     *         {
+     *             "name"="firstname",
+     *             "dataType"="string",
+     *             "requirement"="^[A-Z]*[a-z]*$",
+     *             "description"="The user's firstname."
+     *         },
+     *         {
+     *             "name"="lastname",
+     *             "dataType"="string",
+     *             "requirement"="^[A-Z]*[a-z]*$",
+     *             "description"="The user's lastname."
+     *         },
+     *         {
+     *             "name"="birth_date",
+     *             "dataType"="string",
+     *             "requirement"="dd/mm/YYYY",
+     *             "description"="The user's birth date."
+     *         }
+     *     },
+     *     statusCodes={
+     *         201="Returned when the user is created.",
+     *         400="Returned if one of the arguments doesn't meet the requirements."
+     *     }
      * )
      */
     public function create(User $user, ConstraintViolationListInterface $errors, Request $request)
@@ -124,6 +182,24 @@ class UserController extends FOSRestController
      *     path="/users/{id}",
      *     name="app_user_delete",
      *     requirements={"id"="\d+"}
+     * )
+     *
+     * @Doc\ApiDoc(
+     *     section="Users",
+     *     resource=true,
+     *     description="Delete one of the authenticated client's user.",
+     *     requirements={
+     *         {
+     *             "name"="id",
+     *             "dataType"="integer",
+     *             "requirement"="\d+",
+     *             "description"="The user unique identifier."
+     *         }
+     *     },
+     *     statusCodes={
+     *         200="Returned when the given user gets deleted.",
+     *         404="Returned when the given user hasn't been found."
+     *     }
      * )
      */
     public function delete(User $user)
