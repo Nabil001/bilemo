@@ -79,10 +79,13 @@ class Client implements UserInterface
 
     /**
      * @param string $company
+     * @return Client
      */
-    public function setCompany(string $company): void
+    public function setCompany(string $company): Client
     {
         $this->company = $company;
+
+        return $this;
     }
 
     /**
@@ -95,10 +98,13 @@ class Client implements UserInterface
 
     /**
      * @param string $username
+     * @return Client
      */
-    public function setUsername(string $username): void
+    public function setUsername(string $username): Client
     {
         $this->username = $username;
+
+        return $this;
     }
 
     /**
@@ -111,29 +117,46 @@ class Client implements UserInterface
 
     /**
      * @param string $password
+     * @return Client
      */
-    public function setPassword(string $password): void
+    public function setPassword(string $password): Client
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
     }
 
     /**
      * @param User $user
+     * @return Client
      */
-    public function addUser(User $user): void
+    public function addUser(User $user): Client
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
         }
         $user->setClient($this);
+
+        return $this;
     }
 
     /**
      * @param User $user
+     * @return Client
      */
-    public function removeUser(User $user): void
+    public function removeUser(User $user): Client
     {
         $this->users->removeElement($user);
+
+        return $this;
     }
 
     /**

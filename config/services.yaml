@@ -45,9 +45,13 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
 
-    App\Normalizer\NotFoundHttpNormalizer:
+    App\Normalizer\GoneHttpNormalizer:
         tags:
             - { name: 'app.exception_normalizer' }
+
+    App\Normalizer\NotFoundHttpNormalizer:
+            tags:
+                - { name: 'app.exception_normalizer' }
 
     App\Normalizer\BadRequestHttpNormalizer:
             tags:

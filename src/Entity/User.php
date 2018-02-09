@@ -88,6 +88,15 @@ class User
     private $birthDate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="deleted_at", nullable=true)
+     *
+     * @Serializer\Exclude()
+     */
+    private $deletedAt;
+
+    /**
      * @var Client
      *
      * @ORM\ManyToOne(
@@ -118,10 +127,13 @@ class User
 
     /**
      * @param string $firstname
+     * @return User
      */
-    public function setFirstname(string $firstname): void
+    public function setFirstname(string $firstname): User
     {
         $this->firstname = $firstname;
+
+        return $this;
     }
 
     /**
@@ -134,10 +146,13 @@ class User
 
     /**
      * @param string $lastname
+     * @return User
      */
-    public function setLastname(string $lastname): void
+    public function setLastname(string $lastname): User
     {
         $this->lastname = $lastname;
+
+        return $this;
     }
 
     /**
@@ -150,10 +165,32 @@ class User
 
     /**
      * @param \DateTime $birthDate
+     * @return User
      */
-    public function setBirthDate(\DateTime $birthDate): void
+    public function setBirthDate(\DateTime $birthDate): User
     {
         $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDeletedAt(): ?\DateTime
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param \DateTime $deletedAt
+     * @return User
+     */
+    public function setDeletedAt(\DateTime $deletedAt): User
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 
     /**
