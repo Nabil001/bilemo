@@ -12,3 +12,7 @@
 ###< symfony/web-server-bundle ###
 
 /config/jwt/
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
