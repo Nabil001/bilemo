@@ -87,7 +87,8 @@ class UserController extends FOSRestController
      *     resource=true,
      *     description="Get a list of the authenticated client's users.",
      *     statusCodes={
-     *         200="Returned when the request succeed."
+     *         200="Returned when the wanted page is found.",
+     *         404="Returned when the wanted page is not found."
      *     }
      * )
      */
