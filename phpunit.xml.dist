@@ -14,6 +14,11 @@
         <env name="APP_DEBUG" value="1" />
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
+        <env name="DATABASE_URL" value="mysql://root:@127.0.0.1:3306/bilemo_test" />
+        <env name="JWT_PRIVATE_KEY_PATH" value="config/jwt/private.pem" />
+        <env name="JWT_PUBLIC_KEY_PATH" value="config/jwt/public.pem" />
+        <env name="JWT_PASSPHRASE" value="cb8ba5b24954f42c1bd9204a67d23208" />
+        <env name="JWT_TOKEN_TTL" value="10800" />
         <!-- define your env variables for the test env here -->
     </php>
 

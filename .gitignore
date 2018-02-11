@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
@@ -12,6 +11,7 @@
 ###< symfony/web-server-bundle ###
 
 /config/jwt/
+
 ###> symfony/phpunit-bridge ###
 .phpunit
 /phpunit.xml
