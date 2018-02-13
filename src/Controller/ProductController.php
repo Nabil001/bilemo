@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation as Doc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,6 +30,8 @@ class ProductController extends FOSRestController
      *     class="App\Entity\Product",
      *     options={"repository_method" = "findWithJoins"}
      * )
+     *
+     * @Cache(expires="+1 hour", public=true)
      *
      * @Doc\ApiDoc(
      *     section="Products",
@@ -80,6 +83,8 @@ class ProductController extends FOSRestController
      *     nullable=true,
      *     description="The searched term."
      * )
+     *
+     * @Cache(expires="+1 hour", public=true)
      *
      * @Doc\ApiDoc(
      *     section="Products",

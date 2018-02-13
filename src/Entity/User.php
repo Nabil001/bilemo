@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
+ * @ORM\HasLifecycleCallbacks()
  *
  * @Hateoas\Relation(
  *     "self",
@@ -95,6 +96,15 @@ class User
      * @Serializer\Exclude()
      */
     private $deletedAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", name="updated_at")
+     *
+     * @Serializer\Exclude()
+     */
+    private $updatedAt;
 
     /**
      * @var Client
@@ -194,6 +204,14 @@ class User
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
      * @return Client
      */
     public function getClient(): Client
@@ -207,5 +225,14 @@ class User
     public function setClient(Client $client): void
     {
         $this->client = $client;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function update(): void
+    {
+        $this->updatedAt = new \DateTime();
     }
 }

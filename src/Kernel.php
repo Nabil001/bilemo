@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle;
-use Hateoas\HateoasBuilder;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

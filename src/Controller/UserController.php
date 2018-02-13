@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation as Doc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,11 @@ class UserController extends FOSRestController
      *     name="user",
      *     class="App\Entity\User",
      *     converter="app.user_converter"
+     * )
+     *
+     * @Cache(
+     *     etag="user.getId() ~ user.getUpdatedAt().getTimestamp()",
+     *     public=true
      * )
      *
      * @Doc\ApiDoc(
@@ -81,6 +87,8 @@ class UserController extends FOSRestController
      *     nullable=true,
      *     description="The searched term."
      * )
+     *
+     * @Cache(expires="+1 hour", public=true)
      *
      * @Doc\ApiDoc(
      *     section="Users",
