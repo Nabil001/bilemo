@@ -2,6 +2,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    host: 'http://localhost:8000'
 
 services:
     # default configuration for services in *this* file
@@ -29,7 +30,13 @@ services:
 
     App\Converter\UserConverter:
         tags:
-            - { name: request.param_converter, converter: app.user_converter }
+            - { name: 'request.param_converter', converter: 'app.user_converter' }
+
+    App\Listener\PurgeListener:
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.response', method: 'purge' }
 
     app.count_expression:
         class: 'App\ExpressionLanguage\CountExpression'
