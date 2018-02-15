@@ -11,6 +11,7 @@
 ###< symfony/web-server-bundle ###
 
 /config/jwt/
+/report/
 
 ###> symfony/phpunit-bridge ###
 .phpunit
