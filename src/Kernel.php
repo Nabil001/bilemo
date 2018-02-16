@@ -66,7 +66,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
         $exceptionListener = $container->findDefinition('app.exception_listener');
         $normalizers = $container->findTaggedServiceIds('app.exception_normalizer');
 
-        foreach ($normalizers as $id => $normalizer) {
+        foreach (array_keys($normalizers) as $id) {
             $exceptionListener->addMethodCall('addNormalizer', [new Reference($id)]);
         }
     }
