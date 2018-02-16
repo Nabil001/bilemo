@@ -25,10 +25,10 @@ class ProductRepository extends AbstractPaginatorRepository
     }
 
     /**
-     * @param int $page
-     * @param int $limit
+     * @param int         $page
+     * @param int         $limit
      * @param null|string $term
-     * @param string $route
+     * @param string      $route
      * @return PaginatedRepresentation
      */
     public function search(int $page, int $limit, ?string $term, string $route): PaginatedRepresentation

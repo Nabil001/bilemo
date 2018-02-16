@@ -310,12 +310,12 @@ class Fixtures extends Fixture
         }
         $manager->flush();
 
-        for ($i = 0 ; $i < count(self::PRODUCTS) ; $i++) {
+        for ($i = 0 ; $i < count(self::PRODUCTS); $i++) {
             $product = new Product();
             $product->setName(self::PRODUCTS[$i])
-                    ->setDescription(self::DESCRIPTIONS[$i])
-                    ->setPrice(self::PRICES[$i])
-                    ->setTaxeRate(20.00);
+                ->setDescription(self::DESCRIPTIONS[$i])
+                ->setPrice(self::PRICES[$i])
+                ->setTaxeRate(20.00);
 
             foreach (self::IMAGES[$i] as $imageUrl) {
                 $image = new Image();

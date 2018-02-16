@@ -14,10 +14,10 @@ abstract class AbstractPaginatorRepository extends EntityRepository
 {
     /**
      * @param QueryBuilder $builder
-     * @param int $page
-     * @param int $limit
-     * @param array $parameters
-     * @param string $route
+     * @param int          $page
+     * @param int          $limit
+     * @param array        $parameters
+     * @param string       $route
      * @return PaginatedRepresentation
      */
     public function paginate(QueryBuilder $builder, int $page, int $limit, array $parameters, string $route): PaginatedRepresentation

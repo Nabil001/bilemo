@@ -28,7 +28,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 
     public function registerBundles()
     {
-        $contents = require $this->getProjectDir().'/config/bundles.php';
+        $contents = include $this->getProjectDir().'/config/bundles.php';
         foreach ($contents as $class => $envs) {
             if (isset($envs['all']) || isset($envs[$this->environment])) {
                 yield new $class();
@@ -66,7 +66,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
         $exceptionListener = $container->findDefinition('app.exception_listener');
         $normalizers = $container->findTaggedServiceIds('app.exception_normalizer');
 
-        foreach ($normalizers as $id => $normalizer) {
+        foreach (array_keys($normalizers) as $id) {
             $exceptionListener->addMethodCall('addNormalizer', [new Reference($id)]);
         }
     }

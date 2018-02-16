@@ -210,7 +210,7 @@ class UserController extends FOSRestController
      *         }
      *     },
      *     statusCodes={
-     *         200="Returned when the given user gets deleted.",
+     *         204="Returned when the given user gets deleted.",
      *         404="Returned when the given user hasn't been found.",
      *         410="Returned when the given user has already been deleted."
      *     }
@@ -221,6 +221,6 @@ class UserController extends FOSRestController
         $user->setDeletedAt(new \DateTime());
         $this->getDoctrine()->getManager()->flush();
 
-        return new Response();
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 }
