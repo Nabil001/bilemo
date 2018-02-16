@@ -11,7 +11,7 @@ use JMS\Serializer\JsonSerializationVisitor;
  * @ORM\Table(
  *     name="product_feature",
  *     uniqueConstraints={
- *         @ORM\UniqueConstraint(
+ * @ORM\UniqueConstraint(
  *             name="unique_couple",
  *             columns={"product_id", "feature_id"}
  *         )
@@ -31,7 +31,6 @@ class ProductFeature
 
     /**
      * @ORM\Column(type="string")
-     *
      */
     private $value;
 

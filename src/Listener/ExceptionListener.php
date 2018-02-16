@@ -62,14 +62,16 @@ class ExceptionListener
 
         if (!$debug) {
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
-            $response->setContent($this->serializer->serialize(
-                [
+            $response->setContent(
+                $this->serializer->serialize(
+                    [
                     'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
                     'exception' => get_class($exception),
                     'message' => $exception->getMessage()
-                ],
-                'json'
-            ));
+                    ],
+                    'json'
+                )
+            );
 
             $event->setResponse($response);
         }

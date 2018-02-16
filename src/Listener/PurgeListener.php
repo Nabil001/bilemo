@@ -24,11 +24,12 @@ class PurgeListener
         $response = $event->getResponse();
 
         if ((preg_match('#^/users/?$#', $request->getPathInfo())
-                && $request->getMethod() == 'POST'
-                && $response->getStatusCode() == Response::HTTP_CREATED)
+            && $request->getMethod() == 'POST'
+            && $response->getStatusCode() == Response::HTTP_CREATED)
             || (preg_match('#^/users/\d+/?$#', $request->getPathInfo())
-                && $request->getMethod() == 'DELETE'
-                && $response->getStatusCode() == Response::HTTP_OK)) {
+            && $request->getMethod() == 'DELETE'
+            && $response->getStatusCode() == Response::HTTP_OK)
+        ) {
             $this->container->get('app.cache_reverse_proxy')
                 ->getStore()
                 ->purge($this->container->getParameter('host') . '/users/');

@@ -9,7 +9,7 @@ use Hateoas\Representation\PaginatedRepresentation;
 class UserRepository extends AbstractPaginatorRepository
 {
     /**
-     * @param int $id
+     * @param int    $id
      * @param Client $client
      * @return User|null
      */
@@ -28,11 +28,11 @@ class UserRepository extends AbstractPaginatorRepository
     }
 
     /**
-     * @param int $page
-     * @param int $limit
+     * @param int         $page
+     * @param int         $limit
      * @param null|string $term
-     * @param string $route
-     * @param Client $client
+     * @param string      $route
+     * @param Client      $client
      * @return PaginatedRepresentation
      */
     public function search(int $page, int $limit, ?string $term, string $route, Client $client): PaginatedRepresentation
@@ -45,10 +45,12 @@ class UserRepository extends AbstractPaginatorRepository
             ->setParameter('id', $client->getId());
 
         if (!empty($term)) {
-            $builder->andWhere($builder->expr()->orX(
-                $builder->expr()->like('u.firstname', ':term'),
-                $builder->expr()->like('u.lastname', ':term')
-            ))
+            $builder->andWhere(
+                $builder->expr()->orX(
+                    $builder->expr()->like('u.firstname', ':term'),
+                    $builder->expr()->like('u.lastname', ':term')
+                )
+            )
                 ->setParameter('term', $term.'%');
             $parameters['term'] = $term;
         }

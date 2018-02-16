@@ -42,7 +42,7 @@ class UserConverter implements ParamConverterInterface
     }
 
     /**
-     * @param Request $request
+     * @param Request        $request
      * @param ParamConverter $configuration
      */
     public function apply(Request $request, ParamConverter $configuration): void
