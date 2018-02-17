@@ -1,6 +1,8 @@
 # BileMo
+## API Documentation
+An API documentation for BileMo project can be found at https://nabil001.github.io.
 ## Prerequisites
-It it strongly recommanded to install [composer](https://getcomposer.org/) and git(https://git-scm.com/) in order to properly install this project.
+It it strongly recommanded to install [composer](https://getcomposer.org/) and [git](https://git-scm.com/) in order to properly install this project.
 You also need to install [openssl](https://www.openssl.org/) for generating public and private keys, instrumental to authentication.
 ## Installation
 - Download the project (git makes it easy).
