@@ -7,7 +7,7 @@ You also need to install [openssl](https://www.openssl.org/) for generating publ
 ## Installation
 - Download the project (git makes it easy).
 ```
-git clone https://github.com/Nabil001/snowtricks.git
+git clone https://github.com/Nabil001/bilemo.git
 ```
 - Set the current working directory to the root of the project, then run install the dependencies using composer.
 ```
